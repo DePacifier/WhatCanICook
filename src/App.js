@@ -38,20 +38,17 @@ class App extends Component {
         />
         <Route
           path="/searchfoods/ingredients"
-          render={({ history }) => (
+          render={({ history, match }) => (
             <SearchDirectory
               ingredients={this.state.ingredients}
               handleIngredientsChange={this.handleIngredientsChange}
               handleItemClick={this.handleItemClick}
               history={history}
+              match={match}
             />
           )}
         />
-        {/*<Route
-          exact
-          path="/searchfoods/ingredients/:foodid"
-          component={FoodDetails}
-        />*/}
+
         <Route path="*" component={this.ErrorPage} />
       </Switch>
     );

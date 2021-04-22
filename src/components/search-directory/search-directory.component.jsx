@@ -36,8 +36,15 @@ export default class SearchDirectory extends Component {
   };
 
   componentDidMount() {
+    window.addEventListener("popstate", this.onBackButtonEvent);
     //Perofrm API request for food items
   }
+
+  onBackButtonEvent = (e) => {
+    this.setState({
+      foodItemSelected: false,
+    });
+  };
 
   handleBack = () => {
     this.setState(
@@ -58,6 +65,21 @@ export default class SearchDirectory extends Component {
     );
   };
 
+  handleChange = (e) => {
+    this.props.handleIngredientsChange(e.target.value);
+  };
+
+  handleSubmit = () => {
+    // Make API Call and update searched foods
+    console.log("Handle Submit called for an API request");
+  };
+
+  handleKeyDown = (e) => {
+    if (e.code === "Enter") {
+      this.handleSubmit();
+    }
+  };
+
   render() {
     const foodsDirectory = (
       <div>
@@ -67,9 +89,10 @@ export default class SearchDirectory extends Component {
             type="text"
             value={this.props.ingredients}
             autoComplete="true"
-            onChange={this.props.handleIngredientsChange}
-            // onKeyDown={}
+            onChange={this.handleChange}
+            onKeyDown={this.handleKeyDown}
           ></input>
+          <button onClick={this.handleSubmit}>Search</button>
         </div>
         <div className="directory-menu">
           {this.state.searchedFoods.map(({ id, ...otherSectionProps }) => (

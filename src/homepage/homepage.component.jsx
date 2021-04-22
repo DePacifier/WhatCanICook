@@ -2,16 +2,16 @@ import React from "react";
 import "./homepage.styles.scss";
 
 const HomePage = (props) => {
-  const handleSubmit = () => {
-    props.history.push("/searchfoods/ingredients");
-  };
-
   const handleChange = (e) => {
     props.handleIngredientsChange(e.target.value);
   };
 
   const handleKeyDown = (e) => {
     if (e.code === "Enter") handleSubmit();
+  };
+
+  const handleSubmit = () => {
+    props.history.push("/searchfoods/ingredients");
   };
 
   return (
@@ -24,7 +24,8 @@ const HomePage = (props) => {
         value={props.ingredients}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        autoComplete="true"
+        autoFocus
+        required
       />
       <button onClick={handleSubmit}>Search</button>
     </div>
